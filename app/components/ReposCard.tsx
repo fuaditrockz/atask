@@ -106,11 +106,9 @@ const ReposCard = ({ isOpenDetails, reposUrl }: ReposCardProps) => {
 
     if (!response.ok) {
       const error = await response.json();
-      console.log("error", error);
       setServerError(true);
     } else {
       const data = await response.json();
-      console.log("repositories", data);
       setFirstShowRepositories(data.slice(0, 6));
       setRepositories(data);
     }

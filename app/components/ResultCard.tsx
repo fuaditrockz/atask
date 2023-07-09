@@ -45,13 +45,11 @@ const ResultCard = ({
 
     if (!response.ok) {
       const error = await response.json();
-      console.log("error", error);
       setIsError(true);
       setServerError(true);
       /* throw new Error("Failed to fetch data"); */
     } else {
       const data = await response.json();
-      console.log(data);
       setPresentedData({
         name: data.name,
         username: data.login,

@@ -13,7 +13,6 @@ import { dataSample, dataSampleProps } from "./context/dataSample";
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 });
-console.log("env", process.env.GITHUB_TOKEN);
 
 export default function Home() {
   const { serverError, githubUsers, setGithubUsers } = useContext(AtaskContext);
@@ -32,7 +31,6 @@ export default function Home() {
             q: searchValue,
             per_page: 5,
           });
-          console.log(data.items);
           const { items } = data;
           setGithubUsers(items);
         } else {
@@ -42,7 +40,7 @@ export default function Home() {
         setGithubUsers(dataSample);
       }
     } catch (error: any) {
-      console.log("Error fetch api");
+      return error;
     } finally {
       setTimeout(() => {
         setIsLoading(false);
