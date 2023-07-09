@@ -14,13 +14,35 @@ const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 });
 
+const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: 0,
+    height: 0,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return windowSize;
+};
+
 export default function Home() {
   const { serverError, githubUsers, setGithubUsers } = useContext(AtaskContext);
+  const { width } = useWindowSize();
 
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
-  const { innerWidth: width, innerHeight: height } = window;
 
   const getUserData = async () => {
     setIsLoading(true);
