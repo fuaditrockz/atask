@@ -1,5 +1,6 @@
 "use client";
 import { ReactNode, createContext, useEffect, useState } from "react";
+import { type dataSampleProps } from "./dataSample";
 
 export interface GithubUsersProps {
   login: string;
@@ -24,23 +25,32 @@ export interface GithubUsersProps {
 }
 
 interface AtaskContextProps {
-  githubUsers: GithubUsersProps[];
-  setGithubUsers: (data: GithubUsersProps[]) => void;
+  githubUsers: GithubUsersProps[] | dataSampleProps[];
+  serverError: boolean;
+  setGithubUsers: (data: GithubUsersProps[] | dataSampleProps[]) => void;
+  setServerError: (status: boolean) => void;
 }
 
 export const AtaskContext = createContext<AtaskContextProps>({
   githubUsers: [],
-  setGithubUsers: (data: GithubUsersProps[]) => {},
+  serverError: false,
+  setGithubUsers: (data: GithubUsersProps[] | dataSampleProps[]) => {},
+  setServerError: (status: boolean) => {},
 });
 
 const AtaskContextProvider = (props: { children: ReactNode }) => {
-  const [githubUsers, setGithubUsers] = useState<GithubUsersProps[]>([]);
+  const [githubUsers, setGithubUsers] = useState<
+    GithubUsersProps[] | dataSampleProps[]
+  >([]);
+  const [serverError, setServerError] = useState<boolean>(false);
 
   return (
     <AtaskContext.Provider
       value={{
+        serverError,
         githubUsers,
         setGithubUsers,
+        setServerError,
       }}
     >
       {props.children}
