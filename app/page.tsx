@@ -120,13 +120,14 @@ export default function Home() {
       ) : (
         <div className="w-full h-full mt-20">
           <Image
+            priority={true}
             src="/landing.png"
             width={200}
             height={200}
             alt="error"
             className="w-[300px] h-[300px] mx-auto"
           />
-          <h1 className="text-[30px] text-[#2960bf] font-bold text-center my-8">
+          <h1 className="text-lg lg:text-[30px] text-[#2960bf] font-bold text-center my-8">
             Search People Repositories in Github
           </h1>
         </div>
