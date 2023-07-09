@@ -69,7 +69,7 @@ export default function Home() {
           onSubmit={() => getUserData()}
         />
       </div>
-      {githubUsers.length > 0 && (
+      {githubUsers.length > 0 ? (
         <div className="bg-gray w-full h-full mx-auto">
           <div className="mx-auto w-1/2 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8">
             {isLoading ? (
@@ -103,7 +103,8 @@ export default function Home() {
                 <div className="flex items-center justify-between mb-4">
                   {githubUsers.length > 0 && (
                     <h5 className="text-xl font-bold leading-none text-gray-900">
-                      Total result: {githubUsers.length}
+                      Total result of &apos;{searchValue}&apos;:{" "}
+                      {githubUsers.length}
                     </h5>
                   )}
                 </div>
@@ -115,6 +116,19 @@ export default function Home() {
               </>
             )}
           </div>
+        </div>
+      ) : (
+        <div className="w-full h-full mt-20">
+          <Image
+            src="/landing.png"
+            width={200}
+            height={200}
+            alt="error"
+            className="w-[300px] h-[300px] mx-auto"
+          />
+          <h1 className="text-[30px] text-[#2960bf] font-bold text-center my-8">
+            Search People Repositories in Github
+          </h1>
         </div>
       )}
     </main>

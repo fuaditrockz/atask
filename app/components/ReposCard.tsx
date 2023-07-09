@@ -40,11 +40,21 @@ const RepoCard = ({
     return result;
   };
 
+  const fixedDescription = () => {
+    if (description) {
+      return description.length > 120
+        ? description.substring(0, 120) + "..."
+        : description;
+    } else {
+      return "No description available";
+    }
+  };
+
   return (
     <a
       href={url}
       target="_blank"
-      className="bg-white w-full cursor-pointer h-auto rounded-md border border-slate-300 p-4"
+      className="bg-white relative w-full h-[170px] cursor-pointer rounded-md border border-slate-300 p-4"
     >
       <p className="text-[#2d3436] text-sm font-bold flex flex-row items-center gap-2 mb-2">
         <BiSolidBookBookmark /> {title}{" "}
@@ -53,9 +63,13 @@ const RepoCard = ({
         </span>
       </p>
       <p className="text-[#636e72] text-sm font-sm mb-5">
-        {detectIsHaveEmoji() ? <Emoji>{description}</Emoji> : description}
+        {detectIsHaveEmoji() ? (
+          <Emoji>{fixedDescription()}</Emoji>
+        ) : (
+          fixedDescription()
+        )}
       </p>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row gap-4 absolute bottom-3">
         <p className="text-[#353b48] text-sm font-medium flex flex-row gap-2 items-center">
           <BsCircleFill color="#fdcb6e" /> {language}
         </p>
