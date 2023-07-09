@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Lottie from "react-lottie";
 import Skeleton from "react-loading-skeleton";
@@ -7,22 +7,20 @@ import {
   IoIosArrowDropdownCircle,
   IoIosArrowDropupCircle,
 } from "react-icons/io";
-import { BiSolidBookBookmark } from "react-icons/bi";
-import { BsCircleFill } from "react-icons/bs";
-import { AiFillStar } from "react-icons/ai";
-import { AiOutlineBranches } from "react-icons/ai";
 
 import { GithubUsersProps } from "@/context";
 import { AtaskContext } from "@/context";
 
 import * as animationData from "../../public/avatars.json";
 import { type dataSampleProps } from "../context/dataSample";
+import ReposCard from "@/components/ReposCard";
 
 interface Card {
   name: string;
   username: string;
   avatar: string;
   followers: number;
+  repos_url: string;
 }
 
 const ResultCard = ({
@@ -36,6 +34,7 @@ const ResultCard = ({
     username: "",
     avatar: "",
     followers: 0,
+    repos_url: "",
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -58,6 +57,7 @@ const ResultCard = ({
         username: data.login,
         avatar: data.avatar_url,
         followers: data.followers,
+        repos_url: data.repos_url,
       });
     }
   };
@@ -68,6 +68,7 @@ const ResultCard = ({
       username: data.login,
       avatar: data.avatar_url,
       followers: data.followers,
+      repos_url: data.repos_url,
     });
   };
 
@@ -113,38 +114,6 @@ const ResultCard = ({
     );
   };
 
-  const renderRepositories = () => {
-    return [1, 2, 3, 4].map((repo, index) => {
-      return (
-        <div
-          key={index}
-          className="bg-white w-full h-auto rounded-md border border-slate-300 p-4"
-        >
-          <p className="text-[#2d3436] text-sm font-bold flex flex-row items-center gap-2">
-            <BiSolidBookBookmark /> Repository Title{" "}
-            <span className="border border-slate-200 rounded-full font-medium text-xs px-2">
-              Public
-            </span>
-          </p>
-          <p className="text-[#636e72] text-sm font-sm mb-5">
-            Some description here ya guys
-          </p>
-          <div className="flex flex-row gap-4">
-            <p className="text-[#353b48] text-sm font-medium flex flex-row gap-2 items-center">
-              <BsCircleFill color="#fdcb6e" /> Javascript
-            </p>
-            <p className="text-[#353b48] text-sm font-medium flex flex-row gap-2 items-center">
-              <AiFillStar color="#353b48" /> 38
-            </p>
-            <p className="text-[#353b48] text-sm font-medium flex flex-row gap-2 items-center">
-              <AiOutlineBranches color="#353b48" /> 11
-            </p>
-          </div>
-        </div>
-      );
-    });
-  };
-
   return isLoading ? (
     renderLoadingComponent()
   ) : isError ? null : (
@@ -183,9 +152,10 @@ const ResultCard = ({
         </div>
       </div>
       {isOpenDetails && (
-        <div className="grid grid-cols-2 gap-4 mt-5">
-          {renderRepositories()}
-        </div>
+        <ReposCard
+          isOpenDetails={isOpenDetails}
+          reposUrl={presentedData.repos_url}
+        />
       )}
     </>
   );
