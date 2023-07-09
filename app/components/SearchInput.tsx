@@ -1,6 +1,21 @@
-export const SearchInput = () => {
+interface SearchInputProps {
+  value: string;
+  onChange: (e: any) => void;
+  onSubmit: () => void;
+}
+
+export const SearchInput = ({
+  value,
+  onChange,
+  onSubmit,
+}: SearchInputProps) => {
+  const handleSubmit = (e: any) => {
+    onSubmit();
+    e?.preventDefault();
+  };
+
   return (
-    <form className="w-[500px] mx-auto">
+    <form className="w-1/2 mx-auto" onSubmit={handleSubmit}>
       <label
         htmlFor="search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -30,6 +45,8 @@ export const SearchInput = () => {
           id="search"
           className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
           placeholder="Search"
+          value={value}
+          onChange={onChange}
           required
         />
         <button
