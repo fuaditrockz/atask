@@ -21,6 +21,8 @@ export default function Home() {
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const { innerWidth: width, innerHeight: height } = window;
+
   const getUserData = async () => {
     setIsLoading(true);
     try {
@@ -61,7 +63,7 @@ export default function Home() {
   };
 
   return (
-    <main className="container mx-auto h-screen pt-5">
+    <main className="container mx-auto h-screen px-2 pt-2 lg:pt-5">
       <div className="w-full mb-5">
         <SearchInput
           value={searchValue}
@@ -71,7 +73,7 @@ export default function Home() {
       </div>
       {githubUsers.length > 0 ? (
         <div className="bg-gray w-full h-full mx-auto">
-          <div className="mx-auto w-1/2 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8">
+          <div className="mx-auto w-full lg:w-1/2 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8">
             {isLoading ? (
               <Lottie
                 options={{
@@ -82,8 +84,8 @@ export default function Home() {
                     preserveAspectRatio: "xMidYMid slice",
                   },
                 }}
-                height={400}
-                width={400}
+                height={width > 600 ? 400 : 100}
+                width={width > 600 ? 400 : 100}
               />
             ) : serverError ? (
               <>

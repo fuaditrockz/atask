@@ -145,14 +145,16 @@ const ReposCard = ({ isOpenDetails, reposUrl }: ReposCardProps) => {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 gap-4 mt-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-5">
         <RepoCardLoading />
       </div>
     );
   } else {
     return repositories.length > 0 ? (
       <div className="container">
-        <div className="grid grid-cols-2 gap-4 mt-5">{renderReposCard()}</div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-5">
+          {renderReposCard()}
+        </div>
         <div className="w-[100%] mt-5 text-center">
           <button
             onClick={() => setShowLess(!showLess)}

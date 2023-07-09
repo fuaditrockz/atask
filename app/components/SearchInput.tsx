@@ -15,7 +15,7 @@ export const SearchInput = ({
   };
 
   return (
-    <form className="w-1/2 mx-auto" onSubmit={handleSubmit}>
+    <form className="w-full lg:w-1/2 mx-auto" onSubmit={handleSubmit}>
       <label
         htmlFor="search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only"
